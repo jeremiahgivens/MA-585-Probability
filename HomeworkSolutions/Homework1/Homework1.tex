@@ -1,0 +1,155 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper,%
+            left=.75in,right=.75in,top=1in,bottom=1in]{geometry}
+\setlength{\headsep}{0.25in}
+
+\usepackage{amsthm}
+
+\usepackage{graphicx}
+\usepackage{pgfplots}
+            
+\usepackage[english]{babel}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{case}{Case}
+
+\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+  #1 % the function
+  \vphantom{\big|} % pretend it's a little taller at normal size
+  \right|_{#2} % this is the delimiter
+  }}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+
+\usepackage{mathtools}
+\DeclarePairedDelimiter\bra{\langle}{\rvert}
+\DeclarePairedDelimiter\ket{\lvert}{\rangle}
+\DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1 \delimsize\vert #2}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+
+\DeclareMathOperator{\interior}{int}
+
+\newcommand{\Tau}{\mathcal{T}}
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right)
+}
+
+\usepackage{calligra}
+\DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
+\DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+
+\newcommand{\scripty}[1]{\ensuremath{\mathcalligra{#1}}}
+
+\pagestyle{fancy}
+\author{Jeremiah Givens}
+\newcommand{\subject}{Probability MA 585}
+\newcommand{\Date}{9/2/2021} 
+\makeatletter
+\rhead{{\small\@author}}
+\lhead{{\small\subject}}
+\chead{{\large Homework 1}}
+\cfoot{}
+\rfoot{\thepage}
+\lfoot{\today}
+
+\renewcommand{\theequation}{\arabic{equation}}
+
+\begin{document}
+\section*{Problem 1}
+Suppose one is rolling a six-sided die. Let $\mathcal{F}$ the smallest $\sigma$-field containing $A = \{5, 6\}$
+and $B = \{2, 4, 6\}$.  Prove that $\{5\}$,  $\{1, 3\}$ and $\{1, 2, 3, 4\}$ are events for the measurable space
+$(\Omega,\mathcal{F})$.
+
+\subsection*{Solution}
+
+\begin{proof}
+Since $\mathcal{F}$ is a $\sigma$-algebra, we have that $\mathcal{F}$ is closed under complements and countable unions (and countable intersections, by D'Morgan's Law). In addition, $\mathcal{F}$ contains $\Omega = \{1, ...,6\}$, and the empty set $\emptyset$. Thus, if we can show that each of the three sets in the problem can be written as a finite union and/or intersection of $A, B$ and their complements, then our proof will be complete.
+
+We have 
+\begin{align*}
+B^c \cap (A \cup B) &= \{1, 3, 5\} \cap \{2, 4, 5, 6\}\\
+&= \{5\},
+\end{align*}
+and
+\begin{align*}
+B^c \cap A^c &= \{1, 3, 5\} \cap \{1, ..., 4\}\\
+\{1, 3\},
+\end{align*}
+and
+\begin{align*}
+A^c = \{1, 2, 3, 4\}.
+\end{align*}
+With this, our proof is complete.
+\end{proof}
+
+\section*{Problem 2}
+Let $A$ and $B$ be a pair of independent events. Prove that $A^c$ and $B^c$ are independent.
+
+\subsection*{Solution}
+\begin{proof}
+We can see
+\begin{align*}
+P(A^c \cap B^c) &= P((A \cup B)^c) && \text{D'Morgan's Law}\\
+&= 1 - P(A \cup B)\\
+&= 1 - (P(A) + P(B) - P(A \cap B)) && \text{We derived this in class}\\
+&= 1 - (P(A) + P(B) - P(A)P(B)) && \text{By independence of } A,B\\
+&= 1 - (P(A) + P(B)(1-P(A))\\
+&= 1 - (P(A) + P(B)P(A^c))\\
+&= 1 - P(A) - P(B)P(A^c)\\
+&= P(A^c) - P(B)P(A^c)\\
+&= P(A^c)(1  - P(B))\\
+&= P(A^c)P(B^c),
+\end{align*}
+and we can conclude that $A^c$ and $B^c$ are independent.
+\end{proof}
+
+\section*{Problem 3}
+Consider a coin-die experiment: One flips a fair coin at first. If he gets a head, then he will
+roll a 6-sided fair die; otherwise, he will roll a 4-sided unfair die, which has probability $\frac{5 - i}
+{10}$ to
+get the $i^\text{th}$ face up, where $i \in \{1,...,4\}$.  If one gets a 2 face up, what is the probability that they got a tail
+when they flipped the coin?
+
+\subsection*{Solution}
+Let us denote the result of the coin flip as $X$.  Then, either $X = H$ or $X = T$ for a given experiment. Let us denote the result of the die roll by the random variable $Y$, defined in the obvious way. Let $A = \{X = T\}$ and $B = \{Y = 2\}$ be two events. By definition of conditional probability, we have
+\begin{align*}
+P(A|B) = \frac{P(A \cup B)}{P(B)} \text{, and } P(B|A) = \frac{P(A \cup B)}{P(A)} \implies P(A|B) = \frac{P(B|A) P(A)}{P(B)}.
+\end{align*}
+Now, since $\{X =H\}$ and $\{X = T\}$ partitions our sample space, we have that 
+\begin{align*}
+P(B) = P(B \cap \{X = H\}) + P(B \cap \{X = T\}) =  P(B| X = H) P(X = H) + P(B| X = T) P(X = T).
+\end{align*}
+
+Thus, the equation of interest becomes
+\begin{align}
+P(A|B) = \frac{P(B|A) P(A)}{P(B| X = H) P(X = H) + P(B| X = T) P(X = T)}.
+\end{align}
+The probabilities involved are all essentially given in the problem statement:
+\begin{align*}
+&P(A) = \frac{1}{2} = P(X = T) = P(X = H) && \text{because we flip a fair coin}\\
+&P(B|X = H) = P(Y = 2| X = H) = \frac{1}{6} && \text{because we roll a fair die}\\
+&P(B|A) = P(B|X = T) = P(Y = 2| X = T) = \frac{5 - 2}{10} = \frac{3}{10} && \text{because flip our weighted die}
+\end{align*}
+Plugging these into (1), we have
+\begin{align*}
+P(A|B) &= \frac{\frac{3}{10} \frac{1}{2}}{\frac{1}{6}  \frac{1}{2} + \frac{3}{10} \frac{1}{2}}\\
+&= \frac{\frac{3}{20}}{\frac{1}{12} + \frac{3}{20}}\\
+&= \frac{3}{\frac{5 + 9}{3}}\\
+&= \frac{9}{14}.
+\end{align*}
+For a sanity check, the code for our numerical simulation can be found HERE, which supports our conclusion.
+\end{document}
