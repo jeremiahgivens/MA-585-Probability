@@ -8,6 +8,10 @@
 
 \usepackage{graphicx}
 \usepackage{pgfplots}
+
+\usepackage{hyperref}
+
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=cyan}
             
 \usepackage[english]{babel}
 
@@ -125,7 +129,7 @@ get the $i^\text{th}$ face up, where $i \in \{1,...,4\}$.  If one gets a 2 face 
 when they flipped the coin?
 
 \subsection*{Solution}
-Let us denote the result of the coin flip as $X$.  Then, either $X = H$ or $X = T$ for a given experiment. Let us denote the result of the die roll by the random variable $Y$, defined in the obvious way. Let $A = \{X = T\}$ and $B = \{Y = 2\}$ be two events. By definition of conditional probability, we have
+Let us denote the result of the coin flip as $X$.  Then, either $X = H$ or $X = T$ for a given experiment. Let us denote the result of the die roll by the random variable $Y$. Let $A = \{X = T\}$ and $B = \{Y = 2\}$ be two events. By definition of conditional probability, we have
 \begin{align*}
 P(A|B) = \frac{P(A \cup B)}{P(B)} \text{, and } P(B|A) = \frac{P(A \cup B)}{P(A)} \implies P(A|B) = \frac{P(B|A) P(A)}{P(B)}.
 \end{align*}
@@ -151,5 +155,97 @@ P(A|B) &= \frac{\frac{3}{10} \frac{1}{2}}{\frac{1}{6}  \frac{1}{2} + \frac{3}{10
 &= \frac{3}{\frac{5 + 9}{3}}\\
 &= \frac{9}{14}.
 \end{align*}
-For a sanity check, the code for our numerical simulation can be found HERE, which supports our conclusion.
+For a sanity check, the code for our numerical simulation can be found \href{https://github.com/jeremiahgivens/MA-585-Probability/blob/main/HomeworkSolutions/Homework1/Homework1Problem3.py}{at my github}, which supports our conclusion.
+
+\section*{Problem 4}
+A series of Bernoulli trials with successful rate $p \in (0, 1)$ is performed. We will stop the
+experiment whenever a changeover occurs, which means that the outcome differs from the
+one preceding it. Let $X$ denote the number of Bernoulli trials being performed. Prove that
+$P(X \geq 3) \geq 0.5$.
+
+\subsection*{Solution}
+\begin{proof}
+Let $Y_n \in \{1, 2\}$ be the outcome of the $n^{\text{th}}$ trial in our experiment, where $P(Y_n = 1) = p$, and $P(Y_n = 2) = 1 - p$.  We have
+\begin{align*}
+P(X \geq 3) &= 1 - P(X < 3)\\
+&= 1 - P(X = 2) && \text{since } P(X = 1) = 0
+\end{align*}
+
+Now we have a partition of formed by the events $Y_1 = 1$, and $Y_1 = 2$. Thus, we have
+\begin{align*}
+P(X = 2) &= P(X = 2 \land Y_1 = 1) + P(X = 2 \land Y_1 = 2)\\
+&= P(Y_1 = 1) P(X = 2| Y_1 = 1) + P(Y_1 = 2) P(X = 2| Y_1 = 2) && \text{from definition of conditional probability}\\
+&= p(1-p) + (1 - p) p\\
+&= 2p(1 - p)\\
+&= 2p - 2p^2.
+\end{align*}
+Thus,
+\begin{align*}
+P(X \geq 3) & =  1 - P(X = 2)\\
+&= 2p^2 - 2p + 1.
+\end{align*}
+The aim of this problem is to show that $P(X = 2)$ has a lower bound of $0.5$ for all allowed values of $p$. Thus, all we need to do is show that $P(X = 2) \geq 0.5$ at its minimum. We have
+\begin{align*}
+\frac{d}{d p}(P(X \geq 3)) &= \frac{d}{d p}(2p^2 - 2p + 1)\\
+&= 4p - 2,
+\end{align*}
+and
+\begin{align*}
+\frac{d^2}{d p^2}(P(X \geq 3)) &= 4.
+\end{align*}
+Our second derivative is positive for all values of $p$, which means that any critical point gives us a local minimum. Setting our first derivative equal to $0$, we see
+\begin{align*}
+p = \frac{1}{2}.
+\end{align*}
+Plugging this into our expression for $P(X \geq 3)$, 
+\begin{align*}
+P(X \geq 3) &= 2(\frac{1}{2})^2 - 2 \frac{1}{2} + 1\\
+&= \frac{1}{2} - 1 + 1\\
+&= \frac{1}{2}.
+\end{align*}
+Since this is a local minimum, we have proven that $P(X \geq 3) \geq 0.5$.
+\end{proof}
+
+\section*{Problem 5 (Bonus Problem)}
+Suppose a drunk secretary prepares n letters
+and corresponding envelopes to send to $n$ different people,  but then stuffs the letters in the
+envelopes randomly. (1). Find the probability $p_n$ that at least one letter is inserted into the
+proper envelope. (2) Find $\lim_{n \to \infty} p_n$.
+
+\subsection*{Solution}
+Let us first consider all of the ways in which the secretary could distribute the letters. In the first envelope, she has $n$ choices.  In the second envelope, she has $n - 1$ letters to choose from. Continuing in this manner, we can see that there are $n!$ ways for the secretary to distribute the letters. Now all that remains is to find how many ways she can distribute the letters that will lead to at least one of them going to the proper place.
+
+Denote $A_k$ as the set of all ways that the secretary could distribute the letters in which the $k^{\text{th}}$ letter goes to the proper place, for $k \in \{1, ..., n\}$. Then,  the union 
+\begin{align*}
+\bigcup_{k=1}^n A_k
+\end{align*}
+is the set of all distributions of letters and envelopes that leads to at least one letter going to the correct location. Thus, our problem has boiled down to finding the cardinality of this set. From the inclusion-exclusion principle, we have
+\begin{align*}
+|\bigcup_{k=1}^n A_k| &= \sum_{k=1}^n (-1 )^{k+1} \left( \sum_{1 \leq i_1 \leq ... \leq i_k \leq n} |A_{i_1} \cap ... \cap A_{i_k}| \right).
+\end{align*}
+Now,  each term in the right sum corresponds to fixing $k$ letters in the correct envelopes, and mixing up all of the others. Thus,  for each term, there are ${n \choose k}$ combinations of correct letters, and $(n-k)!$ permutations for the incorrect letters. Therefore, this becomes
+\begin{align*}
+|\bigcup_{k=1}^n A_k| &= \sum_{k=1}^n (-1 )^{k+1} {n \choose k} (n-k)!\\
+&= \sum_{k=1}^n (-1 )^{k+1} \frac{n!}{k! (n-k)!}(n-k)!\\
+&= \sum_{k=1}^n (-1 )^{k+1} \frac{n!}{k!}\\
+&= n! \sum_{k=1}^n  \frac{(-1 )^{k+1}}{k!}.
+\end{align*}
+Dividing by the total numbers of ways the secretary can send the letters, we have
+\begin{align*}
+P(\text{At least one person recieves correct letter}) &= \frac{|\bigcup_{k=1}^n A_k| }{n!} \\
+&= \sum_{k=1}^n  \frac{(-1 )^{k+1}}{k!}.
+\end{align*}
+Taking the limit as $n$ goes to infinity, we have
+\begin{align*}
+P(\text{At least one person recieves correct letter}) &= \sum_{k=1}^\infty  \frac{(-1 )^{k+1}}{k!}.
+\end{align*}
+Recalling our Taylor series, we can see this fits the coefficients for the Taylor series, centered about 0, of $1 - e^{-x}$:
+\begin{align*}
+1 - e^{-x} = \sum_{k=0}^n  \frac{(-1 )^{k+1}}{k!} x.
+\end{align*}
+Notice the zeroth term is $0$.  Evaluating this at $x = 1$, we have 
+\begin{align*}
+P(\text{At least one person recieves correct letter}) &= 1 - e^{-1}.
+\end{align*}
+Once more, given the challenge of the problem, I've written a numerical simulation in Python that supports our conclusion.  You can find the code for this \href{https://github.com/jeremiahgivens/MA-585-Probability/blob/main/HomeworkSolutions/Homework1/Homework1BonusProblem.py}{here}.
 \end{document}
