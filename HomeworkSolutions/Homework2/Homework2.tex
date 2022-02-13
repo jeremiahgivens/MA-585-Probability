@@ -1,0 +1,184 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper,%
+            left=.75in,right=.75in,top=1in,bottom=1in]{geometry}
+\setlength{\headsep}{0.25in}
+
+\usepackage{amsthm}
+
+\usepackage{graphicx}
+\usepackage{pgfplots}
+
+\usepackage{hyperref}
+
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=cyan}
+            
+\usepackage[english]{babel}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{case}{Case}
+
+\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+  #1 % the function
+  \vphantom{\big|} % pretend it's a little taller at normal size
+  \right|_{#2} % this is the delimiter
+  }}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+
+\usepackage{mathtools}
+\DeclarePairedDelimiter\bra{\langle}{\rvert}
+\DeclarePairedDelimiter\ket{\lvert}{\rangle}
+\DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1 \delimsize\vert #2}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+
+\DeclareMathOperator{\interior}{int}
+
+\newcommand{\Tau}{\mathcal{T}}
+
+\newcommand{\Prob}{\mathbb{P}}
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right)
+}
+
+\usepackage{calligra}
+\DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
+\DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+
+\newcommand{\scripty}[1]{\ensuremath{\mathcalligra{#1}}}
+
+\pagestyle{fancy}
+\author{Jeremiah Givens}
+\newcommand{\subject}{Probability MA 585}
+\newcommand{\Date}{9/2/2021} 
+\makeatletter
+\rhead{{\small\@author}}
+\lhead{{\small\subject}}
+\chead{{\large Homework 2}}
+\cfoot{}
+\rfoot{\thepage}
+\lfoot{\today}
+
+\renewcommand{\theequation}{\arabic{equation}}
+
+\begin{document}
+\section*{Problem 1}
+Suppose the number of customers who enter a post office over $[0, 1]$ has a Poisson($\lambda$) distribution. Let $X$ be the time that the first customer enters the post office. Find $\Prob\{X \leq 1\}$.
+
+\subsection*{Solution}
+Let $N \sim \text{Poisson}(\lambda)$ be the number of people that have entered the post office over $[0, 1]$. Then,  we have the probability mass function of $N$ is
+\begin{align*}
+p_N(k) = e^{-\lambda} \frac{\lambda^k}{k!}.
+\end{align*}
+
+Now, another way of phrasing $\Prob\{X \leq 1 \}$ is: what is the probability that at least one person enters the post office? Thus,
+\begin{align*}
+\Prob\{X \leq 1 \} &= \Prob\{N > 0 \}\\
+&= 1 - \Prob\{N = 0 \}\\
+&= 1 - p_N(0)\\
+&= 1 - e^{-\lambda}.
+\end{align*}
+
+\section*{Problem 2}
+Let $f(x)$ be the density function of a continuous r.v.  $X$ defined by $f(x) = c |x|$ for $-2 \leq x \leq 4$, and $f(x) = 0$ otherwise. (1) Determine the constant $c$. (2) Find the mean and median(s) of $X$.
+
+\subsection*{Solution}
+\begin{enumerate}
+\item[(1)] We need to normalize the density function:
+\begin{align*}
+1 &= \int_{- \infty}^{\infty} f(x)dx\\
+&= \int_{-2}^4 c |x| dx\\
+&= -c \int_{-2}^0 x dx + c \int_{0}^{4} x dx\\
+&= \left. -c \frac{1}{2} x^2 \right|_{-2}^0 + \left. c \frac{1}{2} x^2 \right|_{0}^4\\
+&= c(2 + 8)\\
+&= 10c\\
+c &= \frac{1}{10}.
+\end{align*}
+
+\item[(2)] For the mean, we have
+\begin{align*}
+\text{E}X &= \int_{-\infty}^{\infty} x f(x) dx\\
+&= \int_{-2}^4 c x |x| dx\\
+&= -\frac{1}{10} \int_{-2}^0 x^2 dx + c \int_{0}^{4} x^2 dx\\
+&= \frac{1}{10} \left( \left.  - \frac{1}{3} x^3 \right|_{-2}^0 + \left.  \frac{1}{3} x^3 \right|_{0}^4 \right)\\
+&= \frac{1}{10} \left( -\frac{8}{3} + \frac{64}{3} \right)\\
+&= \frac{56}{60}\\
+&= \frac{14}{15}.
+\end{align*}
+Now, let $M$ denote the median of $X$. Then, we have by definition 
+\begin{align*}
+\frac{1}{2} &= \int_{- \infty}^{M} f(x)dx\\
+&= \frac{1}{10} \left(- \int_{-2}^{0} x dx + \int_{0}^{M} x dx \right) \\
+&= \frac{1}{10} \left( 2 + \frac{M^2}{2} \right)\\
+5 &= 2 + \frac{M^2}{2}\\
+6 &= M^2\\
+M &= \sqrt(6).
+\end{align*}
+\end{enumerate}
+
+\section*{Problem 3}
+A fair coin is tossed twice. Let $X$ be the number of heads, and $Y$ the indicator function of the event $\{X = 2\}$. Find the joint probability mass function of $(X, Y)$.
+
+\subsection*{Solution} Due to the small number of possible outcomes, we can easily list them out:
+\begin{align*}
+\{ \text{HH} \} &= (2, 1)\\
+\{ \text{TH} \} &= (1, 0)\\
+\{ \text{HT} \} &= (1, 0)\\
+\{ \text{TT} \} &= (0, 0).
+\end{align*}
+Thus, we have 
+\begin{align*}
+p_{X, Y} (0, 0) &= \frac{1}{4}\\
+p_{X, Y} (1, 0) &= \frac{2}{4} = \frac{1}{2}\\
+p_{X, Y} (2, 1) &= \frac{1}{4},
+\end{align*}
+and $p_{X, Y} (x, y) = 0$ otherwise.
+
+\section*{Problem 4 (Uncorrelated random variables need not be independent)} Let $X \sim N(0, 1)$. Let $Y$ be a discrete random variable independent of $X$ with $\Prob(Y = 1) = \Prob(Y = -1) = \frac{1}{2}$, and define $Z = XY$. Show that $X$ and $Z$ are uncorrelated but not independent.
+
+\subsection*{Solution} To show that $X$ and $Z$ are dependent, we will show that the probability density of $Z$ is different than the probability of $Z$ given $X$. So, we start with finding the probability distribution of $Z$:
+\begin{align*}
+F_Z(z) &= \Prob(Z \leq z)\\
+&= \Prob(XY \leq z)\\
+&= \Prob(XY \leq z| Y = 1) \Prob(Y = 1) + \Prob(XY \leq z| Y = -1) \Prob(Y = -1)\\
+&= \Prob(X \leq z) \Prob(Y = 1) + \Prob(-X \leq z) \Prob(Y = -1)\\
+&= \Prob(X \leq z) \Prob(Y = 1) + \Prob(X > -z) \Prob(Y = -1)\\
+&= \frac{1}{2} \left( \int_{-\infty}^z f_X(x) dx + \int_{-z}^{\infty} f_X(x) dx \right)\\
+&= \frac{1}{2 \sqrt{2 \pi}} \left( \int_{-\infty}^z e^{-x^2} dx + \int_{-z}^{\infty} e^{-x^2} dx \right)\\
+&= \frac{1}{2 \sqrt{2 \pi}} \left( \int_{-\infty}^z e^{-x^2} dx + \int_{-\infty}^{z} e^{-x^2} dx \right) && \text{By symmetry of gaussian function}\\
+&= \frac{1}{\sqrt{2 \pi}}\int_{-\infty}^z e^{-x^2} dx \\
+&= F_X(z).
+\end{align*}
+Thus, $Z \sim N(0, 1)$. However, we can see
+\begin{align*}
+f_{Z|X = x}(z) &= \Prob(Y = 1) \delta(z - x) + \Prob(Y=-1) \delta(z + x) \\
+&= \frac{1}{2} \delta(z - x) + \frac{1}{2} \delta(z + x),
+\end{align*}
+where $\delta$ is the Dirac-Delta function. Therefore,$z$ has a different distribution when the value of $X$ is known, and we can conclude that $Z$ and $X$ are not independent. 
+
+To show that $X$ and $Z$ are not correlated, we first note that because $X,Z \sim N(0, 1)$, we have $\text{E}X = \text{E}Z = 0$. Then,
+\begin{align*}
+\text{Cov}(X,Z) &= \text{E}(X - \text{E}X)(Z - \text{E}Z)\\
+&= \text{E}(XZ)\\
+&= \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} xz f_{X, Y}(x, y) dy dx\\
+&= \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x^2 y f_X(x) f_Y(y) dy dx &&\text{By independence}\\
+&= \int_{-\infty}^{\infty} \int_{-\infty}^{\infty} x^2 y f_X(x) (\frac{1}{2}\delta(y - 1) + \frac{1}{2}\delta(y + 1))dy dx\\
+&= \int_{-\infty}^{\infty} \left(\frac{1}{2} x^2 f_X(x) - \frac{1}{2} x^2 f_X(x) \right)dx &&\text{By the sifting property of the Dirac-Delta}\\
+&= \int_{-\infty}^{\infty} (0) dx\\
+&= 0.
+\end{align*}
+Thus, we have shown that $X$ and $Y$ are not correlated.
+\end{document}
