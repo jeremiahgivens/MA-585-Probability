@@ -1,0 +1,169 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper,%
+            left=.75in,right=.75in,top=1in,bottom=1in]{geometry}
+\setlength{\headsep}{0.25in}
+
+\usepackage{amsthm}
+
+\usepackage{graphicx}
+\usepackage{pgfplots}
+
+\usepackage{hyperref}
+
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=cyan}
+            
+\usepackage[english]{babel}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{case}{Case}
+
+\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+  #1 % the function
+  \vphantom{\big|} % pretend it's a little taller at normal size
+  \right|_{#2} % this is the delimiter
+  }}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+
+\usepackage{mathtools}
+\DeclarePairedDelimiter\bra{\langle}{\rvert}
+\DeclarePairedDelimiter\ket{\lvert}{\rangle}
+\DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1 \delimsize\vert #2}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+
+\DeclareMathOperator{\interior}{int}
+
+\newcommand{\Tau}{\mathcal{T}}
+
+\newcommand{\Prob}{\mathbb{P}}
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right)
+}
+
+\usepackage{calligra}
+\DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
+\DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+
+\newcommand{\scripty}[1]{\ensuremath{\mathcalligra{#1}}}
+
+\pagestyle{fancy}
+\author{Jeremiah Givens}
+\newcommand{\subject}{Probability MA 585}
+\newcommand{\Date}{9/2/2021} 
+\makeatletter
+\rhead{{\small\@author}}
+\lhead{{\small\subject}}
+\chead{{\large Homework 2}}
+\cfoot{}
+\rfoot{\thepage}
+\lfoot{\today}
+
+\renewcommand{\theequation}{\arabic{equation}}
+
+\begin{document}
+\section*{Problem 1.1}
+Show that if $X \in C(0,1)$, then so is $1/X$.
+
+\subsection*{Solution}
+Since $X \in C(0, 1)$, we have 
+\begin{align*}
+f_X(x)  = \frac{1}{\pi} \cdot \frac{1}{1 + x^2} \text{,  for } - \infty < x < \infty.
+\end{align*}
+Define $Y = \frac{1}{X}$. Then, $X = \frac{1}{Y}$, and we have
+\begin{align*}
+|\det(J)| = \left|\frac{dx}{dy} \right| = \frac{1}{y^2}.
+\end{align*}
+Thus,
+\begin{align*}
+f_Y(y) &= |\det(J)|  f_X(1/y)\\
+&= \frac{1}{y^2} \cdot \frac{1}{\pi} \cdot \frac{1}{1 + (1/y)^2}\\
+&= \frac{1}{\pi} \cdot \frac{1}{1 + y^2},
+\end{align*}
+and we have shown that $Y \in C(0, 1)$.
+
+\section*{Problem 1.8}
+Show that if $X, Y$ are independent $N(0, 1)$-distributed random variables,  then $X/Y \in C(0, 1)$.
+
+\subsection*{Solution}
+We have
+\begin{align*}
+f_{X, Y} (x, y) &= \frac{1}{2 \pi} e^{-x^2 / 2} e^{-y^2 / 2}\\
+&= \frac{1}{2 \pi} e^{-\frac{x^2 + y^2}{2}}.
+\end{align*}
+Define $U = X/Y$. We introduce the auxiliary variable $V = X$. Then we have the inverse relations
+\begin{align*}
+X &= V\\
+Y &= V/U.
+\end{align*}
+With this, we can find our Jacobian determinant:
+\begin{align*}
+\det(J) &= 
+\begin{vmatrix}
+\frac{\partial x}{\partial u} & \frac{\partial x}{\partial v}\\
+\frac{\partial y}{\partial u} & \frac{\partial y}{\partial v}
+\end{vmatrix}\\
+&= \begin{vmatrix}
+0 & 1\\
+\frac{-v}{u^2} & \frac{1}{u}
+\end{vmatrix}\\
+&= \frac{v}{u^2}.
+\end{align*}
+Thus,
+\begin{align*}
+f_{U, V} (u, v) &= |\det(J)| f_{X, Y} (v, v/u)\\
+&= \frac{|v|}{u^2} \cdot  \frac{1}{2 \pi} e^{-\frac{v^2 + (v/u)^2}{2}}\\
+&= \frac{|v|}{u^2} \cdot  \frac{1}{2 \pi} e^{-v^2 \frac{1 + (1/u)^2}{2}}.
+\end{align*}
+We want the distribution of $U$, so
+\begin{align*}
+f_U(u) &= \int_{- \infty}^\infty f_{U, V} (u, v) dv\\
+&= \int_{- \infty}^\infty \frac{|v|}{u^2} \cdot  \frac{1}{2 \pi} e^{-v^2 \frac{1 + (1/u)^2}{2}} dv\\
+&=  \frac{1}{u^2 \pi} \int_{0}^\infty v\cdot  e^{-v^2 \frac{1 + (1/u)^2}{2}} dv\\
+&= \frac{1}{\pi} \cdot \frac{1}{1 + u^2}.
+\end{align*}
+Thus, we have shown that $U \in C(0, 1)$.
+
+\section*{Problem 1.11}
+Show that if $X$ and $Y$ are independent Exp($a$)-distributed random variables, then $X/Y \in F(2, 2)$.
+
+\subsection*{Solution}
+We have
+\begin{align*}
+f_{X, Y} (x, y) &= \frac{1}{a^2} e^{-x/a} e^{-y/a}\\
+&= \frac{1}{a^2} e^{-\frac{x + y}{a}},
+\end{align*}
+for $0 \leq x, y < \infty$. Define $U$ and $V$ as we did in the previous problem. Then,
+\begin{align*}
+f_{U, V} (u, v) &= |\det(J)| f_{X, Y} (v, v/u)\\
+&= \frac{v}{u^2} \cdot \frac{1}{a^2} e^{-\frac{v + v/u}{a}}\\
+&=  \frac{v}{u^2} \cdot \frac{1}{a^2} e^{-v\frac{1 + 1/u}{a}}.
+\end{align*}
+Then, we can integrate to find the distribution of $U$:
+\begin{align*}
+f_U(u) &= \int_{- \infty}^\infty f_{U, V} (u, v) dv\\
+&= \frac{1}{a^2 u^2} \int_{0}^\infty v e^{-v\frac{1 + 1/u}{a}} dv\\
+&= \frac{1}{(u + 1)^2}.
+\end{align*}
+After looking up Fisher's distribution, we can conclude that $X/Y \in F(2, 2)$.
+
+
+\section*{Problem 1.12}
+Let $X, Y$ be independent random variables such that $X \in U(0, 1)$ and $Y \in U(0, \alpha)$. Find the density function of $Z = X + Y$.
+
+\subsection*{Solution}
+
+\end{document}
