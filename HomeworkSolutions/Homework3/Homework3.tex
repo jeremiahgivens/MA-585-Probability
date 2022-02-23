@@ -194,18 +194,36 @@ f_{U, V}(u, v) &= f_{X, Y}(v, u - v)\\
       0 & \text{otherwise.}
    \end{cases}\\
    &= \begin{cases} 
-      \frac{1}{\alpha} & 0 \leq v \leq 1 \text{ and } v \leq u \leq \alpha + v \\
+      \frac{1}{\alpha} & 0 \leq v \leq 1 \text{ and } -u \leq -v \leq \alpha - u \\
+      0 & \text{otherwise.}
+   \end{cases}\\
+   &= \begin{cases} 
+      \frac{1}{\alpha} & 0 \leq v \leq 1 \text{ and } u - \alpha \leq v \leq u \\
       0 & \text{otherwise.}
    \end{cases}
 \end{align*}
-Thus, to find the distribution of $U$, we integrate over all $v$
+Thus, to find the distribution of $U$, we integrate over all $v$. However to do this, we need to take care to only integrate over the support of our distribution. To make this easier, we will consider the cases where $\alpha \leq 1$, and the case where $\alpha > 1$.  For the case where $\alpha \leq 1$, we have
 \begin{align*}
 f_U(u) &= \int_{-\infty}^{\infty} f_{U, V}(u, v) dv\\
 &= \begin{cases} 
-      \int_{0}^{1} \frac{1}{\alpha} dv = \frac{1}{\alpha} & 1 \leq u \leq \alpha + 1\\
-      \int_{0}^{u} \frac{1}{\alpha} dv = \frac{u}{\alpha} & 0 \leq u \leq 1\\
+      \int_{0}^{u} \frac{1}{\alpha} dv = \frac{u}{\alpha} & 0 \leq u \leq \alpha \\
+      \int_{u - \alpha}^{u} \frac{1}{\alpha} dv = 1 & \alpha \leq u \leq 1\\
+      \int_{u - \alpha}^{1} \frac{1}{\alpha} dv = \frac{1}{\alpha} (1 + \alpha - u) & 1 \leq u \leq 1 + \alpha \\
       0 & \text{otherwise.}
    \end{cases}
 \end{align*}
+Integrating this $f_U$ over all $u$, we get unity, which is a great sanity check.
+
+Now, we consider the case where $\alpha > 1$. This changes the bounds that satisfy our inequality in a fairly straightforward way:
+\begin{align*}
+f_U(u) &= \int_{-\infty}^{\infty} f_{U, V}(u, v) dv\\
+&= \begin{cases} 
+      \int_{0}^{u} \frac{1}{\alpha} dv = \frac{u}{\alpha} & 0 \leq u \leq 1 \\
+      \int_{0}^{1} \frac{1}{\alpha} dv = \frac{1}{\alpha} & 1 \leq u \leq \alpha\\
+      \int_{u - \alpha}^{1} \frac{1}{\alpha} dv = \frac{1}{\alpha} (1 + \alpha - u) & \alpha \leq u \leq 1 + \alpha \\
+      0 & \text{otherwise.}
+   \end{cases}
+\end{align*}
+Once again, a quick integration verifies that this distribution is normalized, which excludes any obvious errors.
 
 \end{document}
