@@ -1,0 +1,155 @@
+\documentclass[10pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[a4paper,%
+            left=.75in,right=.75in,top=1in,bottom=1in]{geometry}
+\setlength{\headsep}{0.25in}
+
+\usepackage{amsthm}
+
+\usepackage{graphicx}
+\usepackage{pgfplots}
+
+\usepackage{hyperref}
+
+\hypersetup{colorlinks=true, linkcolor=blue, urlcolor=cyan}
+            
+\usepackage[english]{babel}
+
+\theoremstyle{theorem}
+\newtheorem{theorem}{Theorem}
+\newtheorem{lemma}{Lemma}
+\newtheorem{corollary}{Corollary}
+\newtheorem{case}{Case}
+
+\newcommand\restr[2]{{% we make the whole thing an ordinary symbol
+  \left.\kern-\nulldelimiterspace % automatically resize the bar with \right
+  #1 % the function
+  \vphantom{\big|} % pretend it's a little taller at normal size
+  \right|_{#2} % this is the delimiter
+  }}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}
+\newtheorem{remark}{Remark}
+
+\usepackage{mathtools}
+\DeclarePairedDelimiter\bra{\langle}{\rvert}
+\DeclarePairedDelimiter\ket{\lvert}{\rangle}
+\DeclarePairedDelimiterX\braket[2]{\langle}{\rangle}{#1 \delimsize\vert #2}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{fancyhdr}
+
+\DeclareMathOperator{\interior}{int}
+
+\newcommand{\Tau}{\mathcal{T}}
+
+\newcommand{\Prob}{\mathbb{P}}
+
+\newenvironment{amatrix}[1]{%
+  \left(\begin{array}{@{}*{#1}{c}|c@{}}
+}{%
+  \end{array}\right)
+}
+
+\usepackage{calligra}
+\DeclareMathAlphabet{\mathcalligra}{T1}{calligra}{m}{n}
+\DeclareFontShape{T1}{calligra}{m}{n}{<->s*[2.2]callig15}{}
+
+\newcommand{\scripty}[1]{\ensuremath{\mathcalligra{#1}}}
+
+\pagestyle{fancy}
+\author{Jeremiah Givens}
+\newcommand{\subject}{Probability MA 585}
+\newcommand{\Date}{9/2/2021} 
+\makeatletter
+\rhead{{\small\@author}}
+\lhead{{\small\subject}}
+\chead{{\large Homework 2}}
+\cfoot{}
+\rfoot{\thepage}
+\lfoot{\today}
+
+\renewcommand{\theequation}{\arabic{equation}}
+
+\begin{document}
+\section*{Problem 2.8}
+The density function of the two-dimensional random variable $(X, Y)$ is
+\begin{align*}
+f_{X, Y}(x, y) &= \begin{cases} 
+      \frac{x^2}{2 y^3} e^{- \frac{x}{y}} & 0 \leq x \leq \infty, \text{ and } 0 \leq y \leq 1 \\
+      0 & \text{otherwise.}
+   \end{cases}
+\end{align*}
+\begin{enumerate}
+\item[(a)] Determine the distribution of $Y$.
+\item[(b)] Find the conditional distribution of $X$ given that $Y = y$.
+\item[(c)] Use the results from (a) and (b) to compute $EX$ and $\text{Var}X$
+\end{enumerate}
+
+\subsection*{Solution}
+\begin{enumerate}
+\item[(a)] For $0 \leq y \leq 1$, we have
+\begin{align*}
+f_Y(y) &= \int_{-\infty}^{\infty} f_{X, Y}(x, y) dx\\
+&= \int_{0}^{\infty} \frac{x^2}{2 y^3} e^{- \frac{x}{y}} dx\\
+&= \frac{1}{2 y^3} \left( \int_{0}^{\infty} \left(\frac{\partial}{\partial x} (-yx^2 e^{- \frac{x}{y}}) + 2xy e^{- \frac{x}{y}}\right) dx \right)\\
+&= \frac{1}{y^2} \int_{0}^{\infty} x e^{- \frac{x}{y}} dx\\
+&= \frac{1}{y} \int_{0}^{\infty} e^{- \frac{x}{y}} dx\\
+&= \left. - e^{- \frac{x}{y}} \right|_{0}^\infty\\
+&= 1.
+\end{align*}
+
+\item[(b)] From the definition of conditional distributions, we have
+\begin{align*}
+f_{X|Y = y}(x) &= \frac{f_{X, Y}(x, y)}{f_Y(y)}\\
+&= \frac{f_{X, Y}(x, y)}{f_Y(y)}\\
+&= f_{X, Y}(x, y)\\
+&= \begin{cases} 
+      \frac{x^2}{2 y^3} e^{- \frac{x}{y}} & 0 \leq x \leq \infty, \text{ and } 0 \leq y \leq 1 \\
+      0 & \text{otherwise.}
+   \end{cases}
+\end{align*}
+
+\item[(c)] 
+\begin{align*}
+EX &= \int_0^1 \int_0^\infty x f_{X, Y}(x, y) dx dy\\
+&= \int_0^1 \int_0^\infty \frac{x^3}{2 y^3} e^{- \frac{x}{y}} dx dy\\
+&= \frac{3}{2} && \text{after integration by parts 3 times}\\
+EX^2 &= \int_0^1 \int_0^\infty x^2 f_{X, Y}(x, y) dx dy\\
+&= \int_0^1 \int_0^\infty \frac{x^4}{2 y^3} e^{- \frac{x}{y}} dx dy\\ 
+&= 4\\
+\text{Var}X &= EX^2 - (EX)^2\\
+&= 4 - (\frac{3}{2})^2\\
+&= \frac{16 - 9}{4}\\
+&= \frac{7}{4}
+\end{align*}
+\end{enumerate}
+
+\section*{Problem 2.9}
+The density of a random vector $(X, Y)'$ is 
+\begin{align*}
+f_{X, Y}(x, y) &= \begin{cases} 
+      cx & x \geq 0, \text{ and } y \geq 0, \text{ and } x + y \leq 1 \\
+      0 & \text{otherwise.}
+   \end{cases}
+\end{align*}
+Compute 
+\begin{enumerate}
+\item[(a)] c,
+\item[(b)] the conditional expectations $E(Y | X = x)$ and $E(X| Y = y)$.
+\end{enumerate}
+
+\subsection*{Solution}
+\begin{enumerate}
+\item[(a)] Normalization yields
+\begin{align*}
+1 &= \int_0^\infty \int_0^\infty f_{X, Y}(x, y) dx dy\\
+&= \int_0^1 \int_0^{1 - y}  cx dx dy\\
+&= \int_0^1 \frac{c}{2}(1 - y)^2 dx dy\\
+\end{align*}
+\end{enumerate}
+
+\end{document}
