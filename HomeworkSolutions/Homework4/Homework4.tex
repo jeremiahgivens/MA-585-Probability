@@ -99,7 +99,7 @@ f_Y(y) &= \int_{-\infty}^{\infty} f_{X, Y}(x, y) dx\\
 &= \frac{1}{y^2} \int_{0}^{\infty} x e^{- \frac{x}{y}} dx\\
 &= \frac{1}{y} \int_{0}^{\infty} e^{- \frac{x}{y}} dx\\
 &= \left. - e^{- \frac{x}{y}} \right|_{0}^\infty\\
-&= 1.
+&= \boxed{1}.
 \end{align*}
 
 \item[(b)] From the definition of conditional distributions, we have
@@ -107,24 +107,24 @@ f_Y(y) &= \int_{-\infty}^{\infty} f_{X, Y}(x, y) dx\\
 f_{X|Y = y}(x) &= \frac{f_{X, Y}(x, y)}{f_Y(y)}\\
 &= \frac{f_{X, Y}(x, y)}{f_Y(y)}\\
 &= f_{X, Y}(x, y)\\
-&= \begin{cases} 
+&= \boxed{\begin{cases} 
       \frac{x^2}{2 y^3} e^{- \frac{x}{y}} & 0 \leq x \leq \infty, \text{ and } 0 \leq y \leq 1 \\
       0 & \text{otherwise.}
-   \end{cases}
+   \end{cases}}
 \end{align*}
 
 \item[(c)] 
 \begin{align*}
 EX &= \int_0^1 \int_0^\infty x f_{X, Y}(x, y) dx dy\\
 &= \int_0^1 \int_0^\infty \frac{x^3}{2 y^3} e^{- \frac{x}{y}} dx dy\\
-&= \frac{3}{2} && \text{after integration by parts 3 times}\\
+&= \boxed{\frac{3}{2}} && \text{after integration by parts 3 times}\\
 EX^2 &= \int_0^1 \int_0^\infty x^2 f_{X, Y}(x, y) dx dy\\
 &= \int_0^1 \int_0^\infty \frac{x^4}{2 y^3} e^{- \frac{x}{y}} dx dy\\ 
 &= 4\\
 \text{Var}X &= EX^2 - (EX)^2\\
 &= 4 - (\frac{3}{2})^2\\
 &= \frac{16 - 9}{4}\\
-&= \frac{7}{4}
+&= \boxed{\frac{7}{4}}
 \end{align*}
 \end{enumerate}
 
@@ -152,7 +152,7 @@ Compute
 &= \int_0^1 \frac{c}{2}(y^2 - 2y + 1) dy\\
 &= \left. \frac{c}{2}(\frac{1}{3}y^3 - y^2 + y) \right|_0^1\\
 &= \frac{c}{6}\\
-c &= 6.
+c &= \boxed{6}.
 \end{align*}
 \item[(b)] In order to calculate $E(Y | X = x)$ and $E(X| Y = y)$, we will need to first find $f_{Y | X = x}(y)$ and $f_{X | Y = y}(x)$. To find these, we will first need to compute our marginal probability density functions. For $x \in [0, 1]$, we have
 \begin{align*}
@@ -183,14 +183,111 @@ on the support of $f_{X, Y}(x, y)$. Finally, we have
 E(X| Y = y) &= \int_{-\infty}^\infty xf_{X | Y = y}(x) dx\\
 &= \int_{0}^{1 - y} \frac{2x^2}{(1 - y)^2} dx\\
 &= \frac{2(1 - y)^3}{3(1 - y)^2}\\
-&= \frac{2}{3}(1 - y),
+&= \boxed{\frac{2}{3}(1 - y)},
 \end{align*}
 and 
 \begin{align*}
 E(Y| X = x) &= \int_{-\infty}^\infty yf_{Y | X = x}(y) dy\\
 &= \int_{0}^{1 - x} \frac{y}{1 - x} dy\\
 &= \frac{(1 - x)^2}{2(1 - x)}\\
-&= \frac{1}{2} (1 - x).
+&= \boxed{\frac{1}{2} (1 - x)}.
+\end{align*}
+\end{enumerate}
+
+\section*{Problem 2.33}
+Suppose that the random variable $X$ is uniformly distributed symmetrically around zero, but in such a way that the parameter is uniform on $(0, 1)$; that is suppose that
+\begin{align*}
+X|A = a \in U(-a, a) \text{ with } A \in U(0, 1).
+\end{align*}
+Find the distribution of $X$, $EX$, and Var$X$.
+
+\subsection*{Solution}
+We have
+\begin{align*}
+f_{X|A = a}(x) = \frac{f_{X, A}(x, a)}{f_A(a)} &\implies f_{X, A}(x, a) = f_{X|A = a}(x) \cdot f_A(a),
+\end{align*}
+thus
+\begin{align*}
+f_X(x) &= \int_{-\infty}^\infty f_{X, A}(x, a) da\\
+&= \int_{-\infty}^\infty f_{X|A = a}(x) \cdot f_A(a) da.
+\end{align*}
+At this point, in order to correctly integrate over the support of $f_{X, A}(x, a)$, we will break this into case 1 where $-1 \leq x \leq 0$, and case 2 where $0 \leq x \leq 1$.
+\begin{enumerate}
+\item[(1)] Satisfying the conditions of our support, we have
+\begin{align*}
+f_X(x) &= \int_{-\infty}^\infty f_{X, A}(x, a) da\\
+&= \int_{-x}^1 \frac{1}{2a} da\\
+&= - \frac{1}{2} \ln (-x).
+\end{align*}
+
+\item[(2)] Satisfying the conditions of our support once more, we have
+\begin{align*}
+f_X(x) &= \int_{-\infty}^\infty f_{X, A}(x, a) da\\
+&= \int_{x}^1 \frac{1}{2a} da\\
+&= - \frac{1}{2} \ln (x).
+\end{align*}
+\end{enumerate}
+We can succinctly write this as 
+\begin{align*}
+\boxed{f_X(x) = \frac{1}{2} \ln |x|},
+\end{align*}
+for $-1 \leq x \leq 1$.
+
+Now, since we can see that $f_X(x)$ is even, we have that $xf_X(x)$ is odd, and we can automatically conclude that $\boxed{EX = 0}$. Thus, we have
+\begin{align*}
+\text{Var}X &= EX^2 - (EX)^2\\
+&= EX^2.
+\end{align*}
+Now computing $EX^2$ directly with $f_X(x)$ requires some moderately difficult integration, so we will instead use our helper variable:
+\begin{align*}
+EX^2 &= E_{A}(E_{X|A = a}(X))\\
+&= \int_0^1 f_A(a) \cdot (E_{X|A = a}(X)) da\\
+&= \int_0^1 f_A(a) \cdot \left(\int_{-a}^a x^2 \cdot f_{X|A = a}(x) dx \right) da\\
+&= \int_0^1 \int_{-a}^a \frac{x^2}{2a} dx da\\
+&= \int_0^1 \int_{0}^a \frac{x^2}{a} dx da\\
+&= \int_0^1 \frac{a^2}{3}da\\
+&= \boxed{\frac{1}{9}}.
+\end{align*}
+
+\section*{Problem 2.34}
+Consider the following model:
+\begin{align*}
+X_n | Y = y \in \text{Bin}(n, y) \text{ with } f_Y(y) = 6y(1-y), \text{ } 0 < y < 1.
+\end{align*}
+\begin{enumerate}
+\item[(a)] Compute $EX_n$ and Var$X_n$.
+\item[(b)] Determine the distribution of $X_n$.
+\end{enumerate}
+
+\subsection*{Solution}
+\begin{enumerate}
+\item[(a)] Since $X_n | Y = y \in \text{Bin}(n, y)$, we have
+\begin{align*}
+p_{X_n | Y = y}(k) &= {n \choose k} y^k (1 - y)^{n - k} \text{ for } k = 0, 1, ..., n.
+\end{align*}
+Thus, 
+\begin{align*}
+EX_n &= E_Y(E_{X_n|Y = y}(X_n))\\
+&= \int_0^1 \left( \sum_{k = 0}^n  k \cdot p_{X_n | Y = y}(k)\right) \cdot f_Y(y) dy\\
+&= \int_0^1 \left( \sum_{k = 0}^n k {n \choose k} y^k (1 - y)^{n - k} \right) 6y(1 - y) dy\\
+&= \int_0^1 \left( \sum_{k = 0}^n  6k {n \choose k}  y^{k+1} (1 - y)^{n - k + 1} \right) dy\\
+&= -\int_0^1 6n(y-1)y^2 dy \text{, found by entering into wolfram alpha} \\
+&= -6n \int_0^1 (y^3 - y^2) dy\\
+&= -6n(\frac{1}{4} - \frac{1}{3})\\
+&= 6n(\frac{4}{12} - \frac{3}{12})\\
+&= \boxed{\frac{n}{2}}.
+\end{align*}
+To find our variance, we compute $EX^2$ in a very similar manner
+\begin{align*}
+EX^2 &= \int_0^1 \left( \sum_{k = 0}^n  6k^2 {n \choose k}  y^{k+1} (1 - y)^{n - k + 1} \right) dy\\ 
+&= -6 \int_0^1 (y-1)y^2((n-1)ny + n)dy\\
+&= \frac{1}{10}n(3n + 2).
+\end{align*}
+Thus,
+\begin{align*}
+\text{Var}X &= EX^2 - (EX)^2\\
+&= \frac{1}{10}n(3n + 2) - \left(\frac{n}{2}\right)^2\\
+&= \boxed{\frac{n^2}{20} + \frac{n}{5}}
 \end{align*}
 \end{enumerate}
 

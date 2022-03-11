@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.2.22)  9 MAR 2022 11:42
+This is pdfTeX, Version 3.141592653-2.6-1.40.24 (MiKTeX 21.12) (preloaded format=pdflatex 2022.2.22)  11 MAR 2022 14:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -978,18 +978,24 @@ File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 [1{C:/Users/givensjr/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}
 
 ]
-[2] [3] (Homework4.aux)
+[2] [3] [4]
+
+Package amsmath Warning: Foreign command \atopwithdelims;
+(amsmath)                \frac or \genfrac should be used instead
+(amsmath)                 on input line 267.
+
+[5] [6] (Homework4.aux)
 Package rerunfilecheck Info: File `Homework4.out' has not changed.
 (rerunfilecheck)             Checksum: D41D8CD98F00B204E9800998ECF8427E;0.
  ) 
 Here is how much of TeX's memory you used:
- 32089 strings out of 478659
- 755658 string characters out of 2844498
- 1145896 words of memory out of 3000000
+ 32096 strings out of 478659
+ 755716 string characters out of 2844498
+ 1146896 words of memory out of 3000000
  49685 multiletter control sequences out of 15000+600000
  406638 words of font info for 40 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 99i,16n,103p,707b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 99i,18n,103p,707b,609s stack positions out of 5000i,500n,10000p,200000b,80000s
 <C:/Users/givensjr/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/
 cm/cmbx12.pfb><C:/Users/givensjr/AppData/Local/Programs/MiKTeX/fonts/type1/publ
 ic/amsfonts/cm/cmex10.pfb><C:/Users/givensjr/AppData/Local/Programs/MiKTeX/font
@@ -1004,9 +1010,9 @@ c/amsfonts/cm/cmr7.pfb><C:/Users/givensjr/AppData/Local/Programs/MiKTeX/fonts/t
 ype1/public/amsfonts/cm/cmr9.pfb><C:/Users/givensjr/AppData/Local/Programs/MiKT
 eX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/givensjr/AppData/Local/P
 rograms/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy7.pfb>
-Output written on Homework4.pdf (3 pages, 142441 bytes).
+Output written on Homework4.pdf (6 pages, 157831 bytes).
 PDF statistics:
- 88 PDF objects out of 1000 (max. 8388607)
- 8 named destinations out of 1000 (max. 500000)
+ 105 PDF objects out of 1000 (max. 8388607)
+ 15 named destinations out of 1000 (max. 500000)
  13 words of extra memory for PDF output out of 10000 (max. 10000000)
 
