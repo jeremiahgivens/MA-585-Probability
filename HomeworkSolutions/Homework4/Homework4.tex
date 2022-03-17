@@ -291,4 +291,51 @@ Thus,
 \end{align*}
 \end{enumerate}
 
+\section*{Problem 2.35}
+Let $X$ and $Y$ be jointly distributed random variables such that $Y|X = x \in \text{Bin}(n, x)$ with $X \in U(0, 1)$. Compute $EY$, Var$Y$, and Cov$(X, Y)$.
+
+\subsection*{Solution}
+Similar to the previous problem, we know we have
+\begin{align*}
+p_{Y | X = x}(k) &= {n \choose k} x^k (1 - x)^{n - k} \text{ for } k = 0, 1, ..., n.
+\end{align*}
+We also have 
+\begin{align*}
+f_X(x) = \begin{cases} 
+      1& 0 \leq x \leq \infty, \text{ and } 0 \leq x \leq 1 \\
+      0 & \text{otherwise.}
+   \end{cases}
+\end{align*}
+
+Similar to our previous problem, we have
+\begin{align*}
+E_Y &= E_{X}(E_{Y|X = x}(Y))\\
+&= \int_0^1 \left(\sum_{k=0}^n  {n \choose k} k \cdot x^k (1 - x)^{n - k} \right) dx\\
+&= \int_0^1 nx dx\\
+&= \frac{n}{2},
+\end{align*}
+and
+\begin{align*}
+EY^2 &= E_{X}(E_{Y|X = x}(Y^2))\\
+&= \int_0^1 \left(\sum_{k=0}^n  {n \choose k} k^2 \cdot x^k (1 - x)^{n - k} \right) dx\\
+&= \int_0^1 x (n + (-1 + n) n x) dx\\
+&= \frac{1}{6} n (2n + 1)\\
+&= \frac{n^2}{3} + \frac{n}{6}.
+\end{align*}
+Thus, we have
+\begin{align*}
+\text{Var}Y &= EY^2 - (EY)^2\\
+&= \frac{n^2}{3} + \frac{n}{6} - \frac{n^2}{4}\\
+&= \frac{n^2}{12} + \frac{n}{6}.
+\end{align*}
+Finally, we have
+\begin{align*}
+\text{Cov}(X, Y) &= E((X - E(X))(Y - E(Y)))\\
+&= \int_0^1 \sum_{k=0}^n (x - E(X))(k - E(Y))\cdot  p_{Y | X = x}(k) \cdot f_X(x) dx\\
+&= \int_0^1 \sum_{k=0}^n \left(x - \frac{1}{2}\right)\left(k - \frac{n}{2}\right){n \choose k} x^k (1 - x)^{n - k} dx\\
+&= \int_0^1 \frac{1}{4} n (1 - 2x)^2 dx && \text{Let u = 1 - 2x}\\
+&= - \frac{1}{8} n \int_1^{-1} u^2 du\\
+&=  \frac{n}{12}
+\end{align*}
+
 \end{document}
