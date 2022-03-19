@@ -312,7 +312,7 @@ Similar to our previous problem, we have
 E_Y &= E_{X}(E_{Y|X = x}(Y))\\
 &= \int_0^1 \left(\sum_{k=0}^n  {n \choose k} k \cdot x^k (1 - x)^{n - k} \right) dx\\
 &= \int_0^1 nx dx\\
-&= \frac{n}{2},
+&= \boxed{ \frac{n}{2}},
 \end{align*}
 and
 \begin{align*}
@@ -326,7 +326,7 @@ Thus, we have
 \begin{align*}
 \text{Var}Y &= EY^2 - (EY)^2\\
 &= \frac{n^2}{3} + \frac{n}{6} - \frac{n^2}{4}\\
-&= \frac{n^2}{12} + \frac{n}{6}.
+&= \boxed{ \frac{n^2}{12} + \frac{n}{6}}.
 \end{align*}
 Finally, we have
 \begin{align*}
@@ -335,7 +335,43 @@ Finally, we have
 &= \int_0^1 \sum_{k=0}^n \left(x - \frac{1}{2}\right)\left(k - \frac{n}{2}\right){n \choose k} x^k (1 - x)^{n - k} dx\\
 &= \int_0^1 \frac{1}{4} n (1 - 2x)^2 dx && \text{Let u = 1 - 2x}\\
 &= - \frac{1}{8} n \int_1^{-1} u^2 du\\
-&=  \frac{n}{12}
+&=  \boxed{\frac{n}{12}}.
 \end{align*}
+
+\section*{Problem 2.37}
+Let $X$ be the number of coin tosses until heads is obtained. Suppose that the probability of heads is unknown in the sense that we consider it to be a random variable $Y \in U(0, 1)$.
+\begin{enumerate}
+\item[(a)] Find the distribution of $X$.
+\item[(b)] The expected value of an Fs-distributed random variable exists and is well known. What about $EX$?
+\item[(c)] Suppose that the value $X = n$ has been observed. Find the posterior distribution of $Y$, that is, the distribution of $Y|X = n$.
+\end{enumerate}
+
+\subsection*{Solution}
+\begin{enumerate}
+\item[(a)] For $x = 1, 2, ...$, we have
+\begin{align*}
+p_X(x) &= \int_0^1 f_Y(y) \cdot p_{X|Y = y} dy\\
+&= \int_0^1 (1 - y)^{x-1} y dy\\
+&= \int_0^1 \frac{1}{x}(1 - y)^x dy && \text{Integration by parts}\\
+&= \left. - \frac{1}{x(x+1)} (1 - y)^{x+1} \right|_0^1\\
+&= \boxed{\frac{1}{x(x+1)}}.
+\end{align*}
+\item[(b)] We have
+\begin{align*}
+EX &= \sum_{x = 1}^\infty x p_X(x)\\
+&= \sum_{x = 1}^\infty \frac{1}{x+1}.
+\end{align*}
+Employing the integral test, we see
+\begin{align*}
+\int_1^\infty \frac{1}{x+1} dx &= \left. ln(x + 1) \right|_1^\infty \to \infty,
+\end{align*}
+thus $EX$ does not exist.
+\item[(c)] Finally, we have
+\begin{align*}
+f_{Y|X=n} &= \frac{f_{X, Y}(n, y)}{f_X(n)}\\
+&= \frac{f_Y(y) \cdot f_{X|Y=y}(n)}{f_X(n)}\\
+&= \boxed{(1-y)^{n - 1} y n(n + 1) \text{, for y = 1, 2, ...}}.
+\end{align*}
+\end{enumerate}
 
 \end{document}
