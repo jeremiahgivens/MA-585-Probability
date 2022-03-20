@@ -374,4 +374,40 @@ f_{Y|X=n} &= \frac{f_{X, Y}(n, y)}{f_X(n)}\\
 \end{align*}
 \end{enumerate}
 
+\section*{Problem 2.40}
+Let the joint distribution of $X$ and $Y$  be given by 
+\begin{align*}
+f_{X,Y}(x, y) = \begin{cases} 
+      \frac{1}{2}& \text{, for } |x| + |y| \leq 1 \\
+      0 & \text{otherwise.}
+   \end{cases}
+\end{align*}
+Show that $Y$ has constant regression with respect to $X$, i.e., that $E(Y|X) = EY$, but that $X$ and $Y$ are not independent.
+
+\subsection*{Solution}
+We will begin, by finding $f_X(x)$.
+We have for $-1 \leq x \leq 1$,
+\begin{align*}
+f_X(x) &= \int_{-\infty}^\infty f_{X,Y}(x, y) dy\\
+&= \int_{|x| - 1}^{1 - |x|} \frac{1}{2} dy\\
+&= \frac{1}{2}(1 - |x| - |x| + 1)\\
+&= 1 - |x|.
+\end{align*}
+Thus, by symmetry, we have
+\begin{align*}
+f_Y(y) &= 1 - |y|,
+\end{align*}
+for $-1 \leq y \leq 1$.  With this, we can see that $f_{X, Y}(x, y) \not = f_X(x) \cdot f_Y(y)$, and we can conclude that $X$ and $Y$ are not independent. 
+
+Since $f_Y(y)$ is even, we can conclude that $EY = 0$. We must now find $f_{Y|X = x}$ and use it to show that $E(Y|X) = EY$. Thus,
+\begin{align*}
+f_{Y|X = x}(y) &= \frac{f_{X,Y}(x, y)}{f_X(x)}\\
+&= \frac{\frac{1}{2}}{1 - |x|},
+\end{align*}
+for all $-(1 - |x|) \leq y \leq (1 - |X|)$. Thus, we have that $f_{Y|X = x}(y)$ is even, which implies that $y \cdot f_{Y|X = x}(y)$ is odd, and integration over symmetric bounds leads us to conclude that 
+\begin{align*}
+E(Y|X) &= 0\\
+&= EY.
+\end{align*}
+
 \end{document}
