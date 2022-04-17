@@ -73,6 +73,7 @@
 \lfoot{\today}
 
 \renewcommand{\theequation}{\arabic{equation}}
+\newcommand{\minus}{\scalebox{0.75}[1.0]{$-$}}
 
 \begin{document}
 \section*{Problem 3.1}
@@ -157,5 +158,66 @@ EY^k = \frac{1}{4} + 2^{k-1} \text{, for } k=1,2,....
 Determine the distribution of $Y$.
 
 \subsection*{Solution}
+By definition of the moment generating function, we have
+\begin{align}
+\psi_Y(t) &= E e^{tY}\\
+&= \sum_{k = 0}^\infty \Prob(Y = k) \cdot e^{tk} && \text{for discrete } Y \in \mathbb{N}
+\end{align}
+Now, taking advantage of the Taylor series of the exponential function (also sometimes called the definition of the exponential function), and the linearity of expectation, we have
+\begin{align*}
+\psi_Y(t) &= E e^{tY}\\
+&= E \sum_{k=0}^\infty \frac{Y^k}{k!}t^k\\
+&= 1 + \sum_{k=1}^\infty \frac{EY^k}{k!}t^k\\
+&= 1 + \sum_{k=1}^\infty \frac{\frac{1}{4} + 2^{k-1}}{k!}t^k\\
+&= 1 + \frac{-3}{4} + \frac{1}{4} e^t + \frac{1}{2}e^{2t} && \text{Result from wolfram alpha}\\
+&= \frac{1}{4} + \frac{1}{4} e^t + \frac{1}{2}e^{2t}.
+\end{align*}
+Combining this with the result from equation (3), we have
+\begin{align*}
+\Prob(Y = 0) &= \boxed{\frac{1}{4}}\\
+\Prob(Y = 1) &= \boxed{\frac{1}{4}}\\
+\Prob(Y = 2) &= \boxed{\frac{1}{2}}
+\end{align*}
 
+\section*{Problem 3.6}
+Show, by using the moment generating functions, that if $X \in L(1)$,  then $X \stackrel{\text{d}}{=} Y_1 - Y_2$, where $Y_1$ and $Y_2$ are independent, exponentially distributed random variables.
+
+\subsection*{Solution}
+First, we compute the moment generating function of $X$:
+\begin{align*}
+\psi_X(t) &= \int_{-\infty}^\infty f_X(x) \cdot e^{tx} dx\\
+&= \int_{-\infty}^\infty f_X(x) \cdot e^{tx} dx\\
+&= \int_{-\infty}^\infty \frac{1}{2} e^{-|x|} \cdot e^{tx} dx\\
+&= \int_{-\infty}^\infty \frac{1}{2} \cdot e^{tx - |x|} dx\\
+&= \int_{-\infty}^0 \frac{1}{2} \cdot e^{tx +x} dx + \int_{0}^\infty \frac{1}{2} \cdot e^{tx - x} dx\\
+&= \frac{1}{2} \int_{-\infty}^0  e^{x(t +1)} dx + \frac{1}{2} \int_{0}^\infty  e^{x(t - 1)} dx\\
+&= \frac{1}{2} \left( \left. \frac{1}{t+1}  e^{x(t +1)}\right|_{-\infty}^0 + \left. \frac{1}{t - 1} e^{x(t -1)} \right|_0^\infty \right)\\
+&= \frac{1}{2} \left( \frac{1}{t+1} - \frac{1}{t - 1} \right) \text{ for } |t| < 1\\
+&= \frac{1}{2} \left( \frac{t - 1 - t - 1}{(t - 1)(t+1)} \right) \text{ for } |t| < 1 \\
+&= \frac{1}{(1 - t)(t+1)} \text{ for } |t| < 1\\
+&= \frac{1}{1 - t^2} \text{ for } |t| < 1.
+\end{align*}
+Now, we must compute the moment generating function of $Y_1$ and $-Y_2$:
+\begin{align*}
+\psi_{Y_1}(t) &= \int_{-\infty}^\infty f_{Y_1}(y) \cdot e^{ty} dy\\
+&= \int_{0}^\infty e^{-y} \cdot e^{ty} dy\\
+&= \int_{0}^\infty e^{y(t-1)} dy\\
+&= \left. \frac{1}{t - 1} e^{y(t-1)} \right|_0^\infty\\
+&= \frac{1}{t - 1} \text{ for } |t| < 1,
+\end{align*}
+and
+\begin{align*}
+\psi_{\minus Y_2}(t) &= \int_{-\infty}^\infty f_{\minus Y_2}(y) \cdot e^{ty} dy\\
+&= \int_{-\infty}^0 e^y \cdot e^{ty} dy\\
+&= \int_{-\infty}^0 e^{y(t+1)} dy\\
+&= \frac{1}{t + 1} \text{ for } |t| < 1.
+\end{align*}
+Finally, we have
+\begin{align*}
+\psi_{Y_1 - Y_2}(t) &= \psi_{Y_1}(t)\psi_{\minus Y_2}(t)\\
+&= \frac{1}{t - 1} \cdot \frac{1}{t + 1} \\
+&= \frac{1}{1 - t^2}\\
+&= \psi_X(t).
+\end{align*}
+Thus, by Theorem 3.1, we have shown that $X \stackrel{\text{d}}{=} Y_1 - Y_2$.
 \end{document}
